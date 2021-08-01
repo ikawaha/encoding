@@ -45,8 +45,8 @@ type RegularUseDiscriminator struct {
 	disallow []rune
 }
 
-// NewRegularDiscriminator returns a regular kanji character discriminator.
-func NewRegularDiscriminator(options ...Option) *RegularUseDiscriminator {
+// NewRegularUseDiscriminator returns a regular kanji character discriminator.
+func NewRegularUseDiscriminator(options ...Option) *RegularUseDiscriminator {
 	var ret RegularUseDiscriminator
 	for _, option := range options {
 		option(&ret)

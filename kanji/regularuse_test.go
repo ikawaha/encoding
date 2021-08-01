@@ -226,3 +226,23 @@ func TestRegularUseDiscriminator_ReplaceNotRegularUseAll(t *testing.T) {
 		})
 	}
 }
+
+func TestAllow(t *testing.T) {
+	d := NewRegularUseDiscriminator(Allow('𠮷'))
+	for _, v := range "夜明け間際の𠮷野屋" {
+		if got, want := d.IsNotRegularUse(v), false; got != want {
+			t.Errorf("d.IsNotRegularUse(%c) = %v, want %v", v, got, want)
+		}
+	}
+}
+
+func TestDisallow(t *testing.T) {
+	d := NewRegularUseDiscriminator(Disallow([]rune{
+		'虞', '且', '遵', '朕', '但', '附', '又',
+	}...))
+	for _, v := range "虞且遵朕但附又" {
+		if got, want := d.IsNotRegularUse(v), true; got != want {
+			t.Errorf("d.IsNotRegularUse(%c) = %v, want %v", v, got, want)
+		}
+	}
+}
